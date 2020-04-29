@@ -1,0 +1,41 @@
+class MinStack {
+    int min=Integer.MAX_VALUE;
+    int top=-1;
+    int[] l;
+
+    /** initialize your data structure here. */
+    public MinStack() {
+          l=new int[10000];
+          Arrays.fill(l, Integer.MAX_VALUE);
+          top=-1;  
+    }
+    public void push(int x) {
+        if(x<min)min=x;
+        top=top+1;
+        l[top]=x;   
+    }
+    public void pop() {
+        if(l[top]==min){
+        min=Integer.MAX_VALUE;
+        for(int i=0;i<top;i++){
+            if(l[i]<min)min=l[i];
+        }}
+        l[top]=Integer.MAX_VALUE;
+        top=top-1;
+    }
+    public int top() {
+        return l[top];
+    }
+    public int getMin() {
+        return min;
+    }
+}
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack obj = new MinStack();
+ * obj.push(x);
+ * obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.getMin();
+ */
