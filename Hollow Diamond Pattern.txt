@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include <stdlib.h>
+
+int main() {
+
+    int n,ar[300],k,x=1,l=1,r;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&ar[i]);
+    }
+        
+    for(k=0;k<n;k++)
+    {
+        printf("Case #%d: \n",x++);
+        l=1;
+        r=-2;
+    for(int i=1;i<=ar[k];i++)
+    {
+        if(i<=ar[k]/2+1)
+        {
+        for(int j=(ar[k]/2)-i;j>=0;j--)
+        {printf(" ");}
+        }
+        else
+        {l++;
+          for(int j=1;j<l;j++)
+        {printf(" ");
+         
+        }  
+            
+        }
+            printf("*");
+        
+        if(i<=(ar[k]/2)+1)
+        {
+           r+=2; 
+        for(int j=1;j<r;j++)
+        {printf(" ");}
+        
+        }
+        else
+        {r=r-2; 
+          for(int j=1;j<r;j++)
+        {printf(" ");
+         
+        } 
+            
+        }
+        if(i>1 && i<ar[k])
+        printf("*");
+           
+        printf("\n");
+    }        
+    }
+}
