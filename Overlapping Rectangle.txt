@@ -1,0 +1,40 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    long int x1BL ,y1BL, x1TR, y1TR, x2BL ,y2BL, x2TR, y2TR,t;
+    long long int area,area1,area2,x,y;
+    cin >>t;
+    while(t--)
+    {
+        cin >>x1BL >>y1BL >>x1TR >>y1TR;
+        cin >>x2BL >>y2BL >>x2TR >>y2TR;
+        
+        
+    area1= abs(x1TR-x1BL) * abs(y1TR-y1BL) ;
+        area2=  abs(x2TR-x2BL) * abs(y2TR-y2BL) ;
+        
+        x=min( x2TR,x1TR ) - max(x2BL,x1BL);
+        
+            y=min( y2TR,y1TR ) - max(y2BL,y1BL);
+        
+        if(y1TR<y2BL || y1BL>y2TR || x1TR<x2BL ||x1BL>x2TR)
+            area=area1+area2;
+        else
+            area=area1+area2-(x*y);
+    
+        cout <<area <<endl;
+    
+    
+    }
+
+
+
+return 0;
+}
