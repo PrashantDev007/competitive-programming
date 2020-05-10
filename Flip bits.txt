@@ -1,0 +1,40 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input #include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    long long int t,counta=0,countb=0,a,b,ans  ;
+    cin >>t;
+    while(t--)
+    {
+        ans=0;
+        cin>>a;
+        cin>>b;
+        
+        a=a^b;
+                while(a>0)
+        {
+            a=a&(a-1);
+                    ans++;
+                    
+        }
+     
+     cout<<ans<<endl;   
+    }
+    return 0;
+}
+
