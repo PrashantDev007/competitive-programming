@@ -1,0 +1,33 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    int t,n;
+    cin>>t;
+    while(t--)
+    {
+        unsigned int temp=0;
+        cin>>n;
+        
+        for(int i=0;i<32;i++)
+        {
+        
+            if((n&(1u<<i))>0)
+            {
+                
+               temp=temp |(1u<<(31-i));
+               
+            }
+        }
+        
+        cout<<temp<<endl;
+    }
+    
+    return 0;
+}
