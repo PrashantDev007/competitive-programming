@@ -1,0 +1,60 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) throws NumberFormatException, IOException{
+ 
+       Scanner scanner = new Scanner(System.in);
+    int t=scanner.nextInt();;
+    while(t-->0) {
+    
+        int matrix=scanner.nextInt();    
+        Integer[][] value=new Integer[matrix][matrix];
+        for (int i=0;i<matrix;i++)
+        {
+            for(int j=0;j<matrix;j++)
+            {
+                value[j][i]=scanner.nextInt();
+            }
+        }
+            
+        int p=matrix-1,q=0;
+        int count=matrix+matrix-1;
+        while(count>0)
+        {
+            
+        
+            int i=p;int j=q;
+            int sum=0;
+            while(i<matrix && j<matrix)
+            {    
+                sum=sum+value[i][j];
+                
+                i++;
+                j++;
+            }
+            System.out.print(sum+" ");
+        
+            if(p-1<0)
+            {
+                p=0;
+                q++;
+            }
+            else
+            {
+                p--;
+            }
+            
+            
+        count--;
+            
+        }
+        
+     System.out.println();   
+        
+}
+       
+        
+    }
+}
