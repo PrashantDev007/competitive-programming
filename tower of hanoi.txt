@@ -1,0 +1,42 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+void tower(int n,char A,char B,char C)
+{
+    
+    if(n>0)
+    {
+     
+    tower(n-1,A,C,B);
+        
+    cout<<"Move "<<n<<" from "<< A <<" to "<< C <<endl;
+        
+         
+    tower(n-1,B,A,C);
+        
+        }
+    
+   
+}
+
+int main() {
+    int t,n,count=0;
+    char A,B,C;
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */ 
+    cin>>t;
+    while(t--)
+    {
+        
+        cin>>n;
+        count=0;
+        cout<<(pow(2,n)-1)<<endl;
+        tower(n,'A','B','C');
+        
+    }
+    
+    return 0;
+}
