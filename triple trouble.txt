@@ -1,0 +1,43 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */  
+    long long int n,t,k,ar[10000],first,second,neutral;
+    
+    cin >>t;
+    while(t--)
+    {
+        
+        cin>>n;
+        first=0;
+        ar[10000]={};
+        second=0;
+        for(int i=0;i<n;i++)
+        {
+            
+            cin>>ar[i];
+                
+            second = second | ( first & ar[i]);
+             
+            first = first ^ ar[i];
+             
+            neutral = ~ (first&second);
+             
+            first = first & neutral;
+            
+            second = second & neutral;
+             
+         
+        }
+         
+        cout<<first<<endl;
+         
+    }
+    return 0;
+}
