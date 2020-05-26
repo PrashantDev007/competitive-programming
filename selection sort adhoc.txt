@@ -1,0 +1,50 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    long long int k,n,key,t;
+    vector <int>ar;
+    cin>>t;
+    while(t--)
+    {
+        cin>>n;
+        for(int i=0;i<n;i++)
+        {
+            cin>>k;
+            ar.push_back(k);
+        }
+        
+        for(int i=0;i<n-1;i++)
+        {
+            k=i;
+            key=ar[i+1];
+            
+            while(key<ar[k] && k>=0)
+            {
+                ar[k+1]=ar[k];
+                k--;
+                // temp=ar[k];
+                // ar[k]=key;
+                // key=temp;
+                
+            }
+            k++;
+            cout<<k<<" ";
+            ar[k]=key;
+        }
+       
+        
+        cout<<endl;
+        ar.clear();
+        
+        }
+    
+    return 0;
+
+}
