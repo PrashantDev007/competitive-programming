@@ -1,0 +1,60 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */ 
+    long long int p1,count,p2,n,t,a,b;
+    vector <int>ar;
+    vector <int>br;
+    
+    cin>>t;
+        while(t--)
+        {
+            cin>>n;
+            p1=0;p2=0;count=0;
+            for(int i=0;i<n;i++)
+            {
+                cin>>a;
+                ar.push_back(a);
+            }
+            
+             for(int i=0;i<n;i++)
+            {
+                cin>>b;
+                br.push_back(b);
+            }
+            
+            sort(ar.begin(),ar.end());
+            sort(br.begin(),br.end());
+           
+            
+            while(p1<n)
+            {
+                if(ar[p1]>br[p2])
+                {
+                    count++;
+                    p1++;
+                    p2++;
+                }
+                else
+                    p1++;
+                
+                
+                
+                
+                
+            }
+            cout<<count<<endl;
+            
+            ar.clear();
+            br.clear();
+            
+        }
+    return 0;
+}
+s
