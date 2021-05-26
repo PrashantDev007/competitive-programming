@@ -1,0 +1,53 @@
+https://leetcode.com/problems/integer-to-roman/submissions/
+
+class Solution {
+
+	public String intToRoman(int value) {
+
+		String ans = "";
+		if (value <= 0)
+			return ans;
+		else if (value >= 1000) {
+			value = value - 1000;
+			ans = "M";
+		} else if (value >= 900) {
+			value = value - 900;
+			ans = "CM";
+		} else if (value >= 500) {
+			value = value - 500;
+			ans = "D";
+		} else if (value >= 400) {
+			value = value - 400;
+			ans = "CD";
+		} else if (value >= 100) {
+			value = value - 100;
+			ans = "C";
+		} else if (value >= 90) {
+			value = value - 90;
+			ans = "XC";
+		} else if (value >= 50) {
+			value = value - 50;
+			ans = "L";
+		} else if (value >= 40) {
+			value = value - 40;
+			ans = "XL";
+		} else if (value >= 10) {
+			value = value - 10;
+			ans = "X";
+		} else if (value >= 9) {
+			value = value - 9;
+			ans = "IX";
+		} else if (value >= 5) {
+			value = value - 5;
+			ans = "V";
+		} else if (value >= 4) {
+			value = value - 4;
+			ans = "IV";
+		} else if (value >= 1) {
+			value = value - 1;
+			ans = "I";
+		}
+		return ans + intToRoman(value);
+
+	}
+}

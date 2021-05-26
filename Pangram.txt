@@ -1,0 +1,27 @@
+https://leetcode.com/problems/check-if-the-sentence-is-pangram/submissions/
+
+package gsIncubation;
+
+import java.util.List;
+
+public class Pangram {
+
+	public static void main(String args[]) {
+
+		String s = "The slow purple oryx meanders past the quiescent canine";
+		s = s.toLowerCase();
+		int count[] = new int[26];
+		for (int i = 0; i < s.length(); i++) {
+			if (Character.isAlphabetic(s.charAt(i)))
+				count[s.charAt(i) - 'a']++;
+		}
+		String output = "";
+		for (int i = 0; i < count.length; i++) {
+			if (count[i] == 0)
+				output = output + (char) (i + 'a');
+
+		}
+		System.out.println(output);
+	}
+
+}

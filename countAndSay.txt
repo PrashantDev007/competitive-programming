@@ -1,0 +1,28 @@
+https://leetcode.com/problems/count-and-say/
+
+class Solution {
+	public String countAndSay(int n) {
+		if (n == 1)
+			return "1";
+		String input = countAndSay(n - 1);
+		String ans = "";
+		int i = 0;
+		int count = 0;
+		char start = ' ';
+		while (i < input.length()) {
+			start = input.charAt(i);
+			count = 0;
+
+			while (i < input.length() && start == input.charAt(i)) {
+				count++;
+				i++;
+			}
+
+			ans = ans + String.valueOf(count) + String.valueOf(start);
+
+		}
+
+		return ans;
+
+	}
+}

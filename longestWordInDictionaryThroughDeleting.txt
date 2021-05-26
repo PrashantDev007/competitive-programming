@@ -1,0 +1,57 @@
+https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/
+
+package gsIncubation;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class LongestWordThroughDeleting {
+
+	public static boolean checkWordPossibleOrNot(String s, String word) {
+
+		int j = -1;
+		int count = 0;
+		for (int i = 0; i < word.length(); i++) {
+			j++;
+			while (j < s.length() && s.charAt(j) != word.charAt(i)) {
+				j++;
+			}
+			if (j == s.length())
+				break;
+			if (s.charAt(j) == word.charAt(i))
+				count++;
+		}
+
+		if (count == word.length())
+			return true;
+		return false;
+	}
+
+	public static String findLongestWord(String s, List<String> dictionary) {
+
+		String ans = "";
+		Collections.sort(dictionary);
+
+		for (int i = 0; i < dictionary.size(); i++) {
+
+			if (checkWordPossibleOrNot(s, dictionary.get(i)) && dictionary.get(i).length() > ans.length()) {
+				ans = dictionary.get(i);
+
+			}
+
+		}
+		return ans;
+
+	}
+
+	public static void main(String args[]) {
+		System.out
+				.println(findLongestWord("abpcplea", Arrays.asList(new String[] { "ale", "apple", "monkey", "plea" })));
+	}
+
+}

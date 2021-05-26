@@ -1,0 +1,55 @@
+https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+
+/**
+ * Definition for a binary tree node. public class TreeNode { int val; TreeNode
+ * left; TreeNode right; TreeNode() {} TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) { this.val = val; this.left
+ * = left; this.right = right; } }
+ */
+class Solution {
+	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+
+		List<List<Integer>> list = new LinkedList<>();
+		if (root == null)
+			return list;
+
+		Deque<TreeNode> q = new LinkedList<>();
+		q.addFirst(root);
+		boolean flag = false;
+		while (!q.isEmpty()) {
+
+			List<Integer> l = new LinkedList<>();
+			int tmp = q.size();
+
+			flag = !flag;
+
+			while (tmp > 0) {
+
+				if (flag) {
+
+					if (q.peekFirst().left != null)
+						q.addLast(q.peekFirst().left);
+					if (q.peekFirst().right != null)
+						q.addLast(q.peekFirst().right);
+					l.add(q.pollFirst().val);
+
+				}
+
+				else {
+					if (q.peekLast().right != null)
+						q.addFirst(q.peekLast().right);
+					if (q.peekLast().left != null)
+						q.addFirst(q.peekLast().left);
+					l.add(q.pollLast().val);
+
+				}
+				tmp--;
+			}
+
+			list.add(l);
+
+		}
+		return list;
+
+	}
+}

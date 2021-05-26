@@ -1,0 +1,40 @@
+https://leetcode.com/problems/roman-to-integer/submissions/
+
+
+class Solution {
+    public int romanToInt(String s) {
+ 
+        int ans=0;
+        if(s.length()==0)return 0;
+        if(s.length()>=2){
+              
+            String tmp=s.substring(0,2);
+            if( tmp.equals("CM") ){s=s.substring(2,s.length());ans=900; } 
+            else if( tmp.equals("CD") ){s=s.substring(2,s.length());ans=400; }
+            else if( tmp.equals("XC") ){s=s.substring(2,s.length());ans=90; }
+            else if( tmp.equals("XL") ){s=s.substring(2,s.length());ans=40; }
+            else if( tmp.equals("IX") ){s=s.substring(2,s.length());ans=9; }
+            else if( tmp.equals("IV") ){s=s.substring(2,s.length());ans=4; }
+        }
+        
+        if(ans==0){
+            char tmp=s.charAt(0) ;       
+            if( tmp=='M' ){s=s.substring(1,s.length()); ;ans=1000;}
+            else if( tmp=='D' ){s=s.substring(1,s.length()); ;ans=500;}
+            else if( tmp=='C' ){s=s.substring(1,s.length()); ;ans=100;}
+            else if( tmp=='L' ){s=s.substring(1,s.length()); ;ans=50;}
+            else if( tmp=='X' ){s=s.substring(1,s.length()); ;ans=10;}
+            else if( tmp=='V' ){s=s.substring(1,s.length()); ;ans=5;}
+            else if( tmp=='I' ){s=s.substring(1,s.length()); ;ans=1;}
+
+        }
+        return ans+romanToInt(s);
+
+    
+        
+        
+        
+        
+        
+    }
+}

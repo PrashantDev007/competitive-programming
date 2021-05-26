@@ -1,0 +1,158 @@
+package implementHashMap;
+
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
+
+import org.junit.Test;
+
+import implementHashMap.Entry;
+
+class Entry<K, V> {
+
+	K key;
+	V value;
+	Entry<K, V> next;
+
+	public Entry(K key, V value, Entry<K, V> entry) {
+		this.key = key;
+		this.value = value;
+		this.next = entry;
+	}
+
+	public K getKey() {
+		return key;
+	}
+
+	public V getValue() {
+		return value;
+	}
+
+	public Entry<K, V> getNext() {
+		return next;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((key == null) ? 0 : key.hashCode());
+		result = prime * result + ((value == null) ? 0 : value.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Entry other = (Entry) obj;
+		if (key == null) {
+			if (other.key != null)
+				return false;
+		} else if (!key.equals(other.key))
+			return false;
+		if (value == null) {
+			if (other.value != null)
+				return false;
+		} else if (!value.equals(other.value))
+			return false;
+		return true;
+	}
+
+}
+
+public class MyMap<K, V> {
+
+	private int capacity;
+	private Entry<K, V> bucket[];
+
+	private double loadFactor = 0.75;
+
+	private int size = 0;
+
+	public MyMap() {
+		this(16);
+	}
+
+	public MyMap(int capacity) {
+		this.capacity = capacity;
+		this.bucket = new Entry[capacity];
+	}
+
+	public int size() {
+		return size;
+	}
+
+	private void increaseSize() {
+
+		if (size >= loadFactor * capacity) {
+			capacity *= 2;
+
+			this.size = 0;
+			Entry<K, V>[] old = bucket;
+
+			bucket = new Entry[capacity];
+			for (Entry<K, V> e : old) {
+				while (e != null) {
+					put(e.getKey(), e.getValue());
+					e = e.next;
+				}
+
+			}
+
+		}
+
+	}
+
+	public void put(K key, V value) {
+
+		Entry<K, V> entry = new Entry<>(key, value, null);
+
+		int index = getHash(entry.key) % bucket.length;
+		Entry<K, V> exist = bucket[index];
+		if (exist == null) {
+			increaseSize();
+			bucket[index] = entry;
+			size++;
+		} else {
+			while (exist.next != null) {
+				if (exist.key.equals(key)) {
+					exist.value = value;
+					return;
+				}
+				exist = exist.next;
+			}
+			if (exist.key.equals(key)) {
+				exist.value = value;
+			} else {
+				exist.next = entry;
+				size++;
+				increaseSize();
+			}
+
+		}
+	}
+
+	private int getHash(K key) {
+		return key == null ? 0 : Math.abs(key.hashCode());
+	}
+
+	public V get(K key) {
+		int index = getHash(key) % bucket.length;
+
+		Entry<K, V> exist = bucket[index];
+		while (exist != null) {
+
+			if (exist.key.equals(key)) {
+				return exist.value;
+			}
+			exist = exist.next;
+
+		}
+		return null;
+	}
+
+}

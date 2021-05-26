@@ -1,0 +1,54 @@
+package algo;
+
+public class Test {
+
+	public static boolean checkForPalindrome(String s, int start, int last) {
+
+		while (start < last) {
+			if (s.charAt(start) != s.charAt(last))
+				return false;
+			start++;
+			last--;
+		}
+		return true;
+	}
+
+	public static void main(String args[]) {
+
+		String s = "bc";
+		int last = s.length() - 1;
+		int start = 0;
+		boolean flag = true;
+		while (start < last) {
+			if (s.charAt(start) != s.charAt(last)) {
+				{
+					flag = false;
+					break;
+				}
+			}
+
+			start++;
+			last--;
+		}
+		boolean isConvertable = false;
+		if (flag == true)
+			System.out.println("true");
+		else if (flag == false)
+
+		{
+
+			if (checkForPalindrome(s, start + 1, last)) {
+				isConvertable = true;
+				System.out.println("we can convert string to palindrome by removing index= " + start);
+			} else if (checkForPalindrome(s, start, last - 1)) {
+				isConvertable = true;
+				System.out.println("we can convert string to palindrome by removing index= " + last);
+			}
+
+		}
+		if (isConvertable == false && flag == false)
+			System.out.println("false");
+
+	}
+
+}

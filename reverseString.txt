@@ -1,0 +1,27 @@
+https://leetcode.com/problems/reverse-string/submissions/
+
+package gsIncubation;
+
+public class ReverseAString {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		String s="abcde";
+		char array[]=s.toCharArray();
+		int start=0;
+		int end=s.length()-1;
+		char tmp=' ';
+		while(start<end) {
+			tmp=array[start];
+			array[start]=array[end];
+			array[end]=tmp;
+			start++;
+			end--;
+		}
+		
+		System.out.println( String.valueOf( array ) );
+		
+	}
+
+}

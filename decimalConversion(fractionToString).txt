@@ -1,0 +1,67 @@
+https://leetcode.com/problems/fraction-to-recurring-decimal/submissions/
+
+package gsIncubation;
+
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+
+class FractionToString {
+
+	// Function to return the required fraction
+	// in string format
+
+	public static String calculateFraction(int num, int den) {
+		StringBuilder result = new StringBuilder();
+
+		if (num == 0)
+			return "0";
+
+		if ((num < 0) ^ (den < 0))
+			result.append("-");
+
+		num = Math.abs(num);
+		den = Math.abs(den);
+
+		long rem = num % den * 10;
+		long quo = num / den;
+
+		result.append(Math.abs(quo));
+		if (rem == 0)
+			return result.toString();
+		else {
+			result.append(".");
+
+			HashMap<Long, Integer> m = new HashMap<>();
+
+			while (rem != 0) {
+
+				if (m.containsKey(rem)) {
+					String part1 = result.substring(0, m.get(rem));
+
+					String part2 = result.substring(m.get(rem), result.length());
+					result.append(part1);
+					result.append(part2);
+					return part1 + "(" + part2 + ")";
+				}
+
+				m.put(rem, result.length());
+				quo = rem / den;
+
+				result.append(Math.abs(quo));
+				rem = rem % den * 10;
+
+			}
+		}
+
+		return result.toString();
+	}
+
+	public static void main(String[] args) {
+		int num = 4;
+		int den = 7;
+
+		System.out.println(calculateFraction(num, den));
+		
+	}
+}

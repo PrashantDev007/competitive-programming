@@ -1,0 +1,138 @@
+https://leetcode.com/problems/insert-into-a-binary-search-tree/
+https://leetcode.com/problems/search-in-a-binary-search-tree/submissions/
+
+package treeProblems;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class SearchAndPutInBinaryTree {
+	static class BST {
+		private Node root;
+
+		public BST() {
+			this.root = new Node();
+		}
+
+		public void putValue(Node r, int value) {
+			if (r != null)
+
+				if (r.val == null) {
+					r.val = value;
+					return;
+				}
+
+			if (r.val == value)
+				return;
+
+			if (value > r.val) {
+
+				if (r.right == null) {
+					r.right = new Node();
+					r.right.val = value;
+				} else
+					putValue(r.right, value);
+
+			}
+
+			else if (value < r.val) {
+
+				if (r.left == null) {
+					r.left = new Node();
+					r.left.val = value;
+				} else
+					putValue(r.left, value);
+			}
+
+		}
+
+		public void put(int value) {
+
+			putValue(root, value);
+
+		}
+
+		public boolean checkForValue(Node root, int value) {
+			if (root == null)
+				return false;
+			if (root.val == null)
+				return false;
+			if (root.val == value)
+				return true;
+
+			return checkForValue(root.left, value) | checkForValue(root.right, value);
+
+		}
+
+		public boolean contains(int value) {
+			return checkForValue(root, value);
+		}
+
+		public List<Integer> inOrderTraversal() {
+			final ArrayList<Integer> acc = new ArrayList<>();
+			inOrderTraversal(root, acc);
+			return acc;
+		}
+
+		private void inOrderTraversal(Node node, List<Integer> acc) {
+			if (node == null) {
+				return;
+			}
+			inOrderTraversal(node.left, acc);
+			acc.add(node.val);
+			inOrderTraversal(node.right, acc);
+
+		}
+
+		private static class Node {
+			Integer val;
+			Node left;
+			Node right;
+		}
+	}
+
+	public static void testBST() {
+		final BST searchTree = new BST();
+		searchTree.put(3);
+		searchTree.put(1);
+		searchTree.put(2);
+		searchTree.put(5);
+		searchTree.put(5);
+
+		assertFalse(searchTree.contains(0));
+		assertTrue(searchTree.contains(1));
+		assertTrue(searchTree.contains(5));
+		assertFalse(searchTree.contains(6));
+		assertEquals(Arrays.asList(1, 2, 3, 5), searchTree.inOrderTraversal());
+	}
+
+	private static void assertFalse(boolean rez) {
+		if (rez) {
+			throw new RuntimeException("Test failed");
+		} else {
+			System.out.println("Test passed");
+		}
+	}
+
+	private static void assertTrue(boolean rez) {
+		if (!rez) {
+			throw new RuntimeException("Test failed");
+		} else {
+			System.out.println("Test passed");
+		}
+	}
+
+	private static void assertEquals(List<Integer> expected, List<Integer> result) {
+		if (!expected.equals(result)) {
+			System.out.println(String.format("Test failed \"%s\" not equeals to \"%s\"", expected, result));
+		} else {
+			System.out.println("Test passed");
+		}
+	}
+
+	// TODO: write some more tests
+	public static void main(String[] args) {
+		testBST();
+	}
+}

@@ -1,0 +1,38 @@
+https://leetcode.com/problems/two-sum/
+
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+         
+        int ans[]=new int[2];
+		HashMap<Integer, Integer>hm=new HashMap<Integer, Integer>();
+		
+        for(int i=0;i<nums.length;i++) {
+			
+			if(hm.get(nums[i])==null)
+			hm.put(nums[i],1);
+			else
+			hm.put(nums[i],hm.get(nums[i])+1 );
+		
+        }
+        
+        int index=-1;
+        for(int i=0;i<nums.length;i++) {
+        
+            if(nums[i]*2==target && hm.get(nums[i])>=2){index=i;break;}
+            
+            else if( hm.get(target-nums[i])!=null && nums[i]*2!=target ){index=i;break;}
+         
+        }
+        
+        if(index==-1)return ans;
+        
+        ans[0]=index;
+        for(int i=0;i<nums.length;i++){
+            if(i!=index&& nums[i]==target-nums[index]){
+                ans[1]=i;return ans;
+            }
+        }
+    return ans;
+        
+    }
+}

@@ -1,0 +1,55 @@
+	package gsIncubation;
+	
+	import java.util.Dictionary;
+	import java.util.HashSet;
+	import java.util.Set;
+	
+	public class LongestWord {
+	
+		public static boolean checkWordCanBeMadeByLetter(Set<Character> letterSet,String word) {
+			
+			for(int i=0;i<word.length();i++) {
+				if(!letterSet.contains(word.charAt(i)))return false;
+			}
+			return true;
+		}
+		
+		public static Set<String> longestWord(String letters, String[] dictionary) {
+	    
+			Set<Character>letterSet=new HashSet<Character>();
+			Set <String> ans=new HashSet<>();
+			
+			for(int i=0;i<letters.length();i++) {letterSet.add(letters.charAt(i));}
+			
+			for(int i=0;i<dictionary.length;i++) {
+				if(checkWordCanBeMadeByLetter(letterSet, dictionary[i]) &&ans.isEmpty()) {
+					ans.add(dictionary[i]);
+				}
+				else if( checkWordCanBeMadeByLetter(letterSet, dictionary[i]) &&!ans.isEmpty()){
+					if(ans.iterator().next().length()<dictionary[i].length()) {
+						ans.clear();
+						ans.add(dictionary[i]);
+					}
+					else if(ans.iterator().next().length()==dictionary[i].length()) {
+						
+						ans.add(dictionary[i]);
+					}
+				}
+				
+			}
+			
+			
+			return ans;
+		}
+	
+		public static void main(String args[]) {
+			
+			String[] dict = new String[]{"to", "toe", "toes", "doe", "dog", "god", "dogs", "book", "banana"};
+			String letter="oetdg";
+			System.out.println(longestWord(letter, dict));
+		
+		}
+		
+		
+		
+	}

@@ -1,0 +1,36 @@
+
+
+package gsIncubation;
+
+import java.util.HashMap;
+
+https://leetcode.com/problems/minimum-number-of-steps-to-make-two-strings-anagram/submissions/
+
+public class MinStepsToMakeTwoStringsAnangram {
+
+	static int minStepsToMakeAnangram(String s, String t) {
+
+		int count[] = new int[26];
+		for (int i = 0; i < s.length(); i++) {
+			count[s.charAt(i) - 'a']++;
+		}
+		for (int i = 0; i < t.length(); i++) {
+			count[t.charAt(i) - 'a']--;
+		}
+		int ans = 0;
+
+		for (Integer value : count) {
+			if (value > 0)
+				ans = ans + value;
+
+		}
+
+		return ans;
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(minStepsToMakeAnangram("abcccdf", "abccdf"));
+	}
+
+}

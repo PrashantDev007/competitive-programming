@@ -1,0 +1,33 @@
+
+
+package gsIncubation;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+
+public class FirstNonRepeatingChar {
+
+	public static void main(String args[]) {
+		String input = "aardadaad";
+		char ans = '0';
+		HashMap<Character, Integer> hm = new LinkedHashMap<>();
+		for (int i = 0; i < input.length(); i++) {
+			if (hm.get(input.charAt(i)) == null)
+				hm.put(input.charAt(i), 1);
+			else
+				hm.put(input.charAt(i), hm.get(input.charAt(i)) + 1);
+
+		}
+		for (Entry<Character, Integer> e : hm.entrySet()) {
+			if (e.getValue() == 1) {
+				ans = e.getKey();
+				break;
+			}
+		}
+		System.out.println(ans);
+
+	}
+	
+	
+}

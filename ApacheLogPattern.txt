@@ -1,0 +1,51 @@
+package gsIncubation;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+public class ApacheLogPattern {
+
+	public static List<String> findTopIpaddress(String[] lines) {
+		int maxcount = Integer.MIN_VALUE;
+		List<String> ans = new ArrayList<String>();
+		HashMap<String, Integer> hmForCount = new HashMap<>();
+		int j = 0;
+		for (int i = 0; i < lines.length; i++) {
+			j = 0;
+
+			while (j < lines[i].length() && lines[i].charAt(j) != ' ') {
+				j++;
+			}
+
+			String ip = lines[i].substring(0, j);
+			if (hmForCount.get(ip) == null)
+				hmForCount.put(ip, 1);
+			else {
+				hmForCount.put(ip, hmForCount.get(ip) + 1);
+			}
+
+			maxcount = Math.max(maxcount, hmForCount.get(ip));
+
+		}
+		final int tmp = maxcount;
+
+		hmForCount.forEach((k, v) -> {
+			if (v == tmp)
+				ans.add(k);
+		});
+		return ans;
+
+	}
+
+	public static void main(String args[]) {
+
+		String lines[] = new String[] { "10.0.0.1 - frank [10/Dec/2000:12:34:56 -0500] \"GET /a.gif HTTP/1.0\" 200 234",
+				"10.0.0.1 - frank [10/Dec/2000:12:34:57 -0500] \"GET /b.gif HTTP/1.0\" 200 234",
+				"10.0.0.2 - nancy [10/Dec/2000:12:34:58 -0500] \"GET /c.gif HTTP/1.0\" 200 234",
+				"10.0.0.2 - nancy [10/Dec/2000:12:34:59 -0500] \"GET /c.gif HTTP/1.0\" 200 234",
+				"10.0.0.3 - logan [10/Dec/2000:12:34:59 -0500] \"GET /d.gif HTTP/1.0\" 200 234", };
+
+		System.out.println(findTopIpaddress(lines));
+	}
+}

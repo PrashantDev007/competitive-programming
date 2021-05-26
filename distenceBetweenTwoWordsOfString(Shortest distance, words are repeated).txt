@@ -1,0 +1,62 @@
+package gsIncubation;
+
+public class ShortestDistanceOfTwoWords {
+
+	public static boolean isWord(String doc, String w1, int index) {
+		if (index == 0 && index + w1.length() == doc.length())
+			return true;
+		else if (index == 0 && doc.charAt(index + w1.length()) == ' ')
+			return true;
+		else if (index > 0 && doc.charAt(index - 1) == ' ' && index + w1.length() == doc.length())
+			return true;
+		else if (index > 0 && doc.charAt(index - 1) == ' ' && doc.charAt(index + w1.length()) == ' ')
+			return true;
+
+		return false;
+	}
+
+	public static double shortestDistance(String doc, String w1, String w2) {
+
+		int lengthOfW1 = w1.length();
+		int lengthOfW2 = w2.length();
+		int FirstWordIndex = -1;
+
+		int SecondWordIndex = -1;
+
+		for (int i = 0; i < doc.length(); i++) {
+
+			if ((i + lengthOfW1) <= doc.length() && doc.substring(i, i + lengthOfW1).equals(w1) && isWord(doc, w1, i)) {
+
+				if (FirstWordIndex == -1 || SecondWordIndex == -1 || Math.abs(SecondWordIndex - FirstWordIndex) > Math.abs(SecondWordIndex - i)) {
+					FirstWordIndex = i;
+
+				}
+
+			} else if ((i + lengthOfW2) <= doc.length() && doc.substring(i, i + lengthOfW2).equals(w2)
+					&& isWord(doc, w2, i)) {
+
+				if (SecondWordIndex == -1 || FirstWordIndex == -1 || Math.abs(SecondWordIndex - FirstWordIndex) > Math.abs(FirstWordIndex - i)) {
+					SecondWordIndex = i;
+				}
+			}
+
+		}
+System.out.println(FirstWordIndex +"    "+SecondWordIndex);
+		double midpoint1 = FirstWordIndex + w1.length() / 2.0;
+		double midpoint2 = SecondWordIndex + w2.length() / 2.0;
+		
+		if(FirstWordIndex==-1 &&  SecondWordIndex ==-1)return 0.0;
+		else if(FirstWordIndex ==-1)return midpoint2;
+		else if (SecondWordIndex ==-1)return midpoint1;
+		
+		return Math.abs(midpoint1 - midpoint2);
+	}
+
+	public static void main(String args[]) {
+
+		double ans = shortestDistance(
+				"In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements",
+				"is", "a");
+		System.out.println(ans);
+	}
+}

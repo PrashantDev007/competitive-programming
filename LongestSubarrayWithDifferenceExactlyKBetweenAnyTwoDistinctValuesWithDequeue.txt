@@ -1,0 +1,51 @@
+https://leetcode.com/problems/longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit/
+
+package gsIncubation;
+
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class LongestSubarrayWithDifferenceExactlyKBetweenAnyTwoDistinctValuesWithDequeue{
+
+	public static int ans(int arr[],int limit) {
+		Deque<Integer> incQ=new  LinkedList<Integer>();
+		Deque<Integer> decQ=new LinkedList<Integer>();
+		int ans=1;
+		int i=0;
+		int j=0;
+		while(j<arr.length &&i<arr.length ){
+			
+			while(incQ.size()>0&& incQ.peekLast()>arr[j] ) {
+				incQ.removeLast();
+				
+			}
+			incQ.addLast(arr[j] );
+			
+			while(decQ.size()>0&& decQ.peekLast()<arr[j] ) {
+				decQ.removeLast();
+				
+			}
+			decQ.addLast(arr[j]);
+		
+
+		
+            if( decQ.peekFirst() -incQ.peekFirst()  >limit){
+			
+            if( incQ.peekFirst()==arr[i] )incQ.removeFirst();
+			if( decQ.peekFirst()==arr[i])decQ.removeFirst();
+			i++;
+			
+        }
+         ans = Math.max(ans, j - i + 1);   
+		j++;
+        }
+		
+		
+		
+		return ans; 
+	}
+	public static void main(String[] args) {
+		
+	}
+}

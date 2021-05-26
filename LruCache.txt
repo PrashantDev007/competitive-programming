@@ -1,0 +1,61 @@
+https://leetcode.com/problems/lru-cache/submissions/
+
+package algo;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.Set;
+
+public class LruCache {
+
+	Set<Integer> cache;
+	Integer capacity;
+
+	public LruCache(Integer capacity) {
+
+		this.cache = new LinkedHashSet<Integer>(capacity);
+		this.capacity = capacity;
+	}
+
+	public boolean get(int key) {
+		if (!cache.contains(key))
+			return false;
+		cache.remove(key);
+		cache.add(key);
+		return true;
+	}
+
+	public void refer(int key) {
+		if (get(key) == false)
+			add(key);
+	}
+
+	public void add(int key) {
+		if (cache.size() == capacity)
+			cache.remove(cache.iterator().next());
+
+		cache.add(key);
+	}
+
+	public void display() {
+		LinkedList<Integer> l = new LinkedList<Integer>(cache);
+		Iterator i = l.descendingIterator();
+		while (i.hasNext())
+			System.out.print(i.next() + " " + "");
+	}
+
+	public static void main(String args[]) {
+
+		LruCache cache = new LruCache(4);
+		cache.refer(1);
+		cache.refer(2);
+		cache.refer(3);
+		cache.refer(1);
+		cache.refer(4);
+		cache.refer(5);
+		cache.display();
+	}
+
+}

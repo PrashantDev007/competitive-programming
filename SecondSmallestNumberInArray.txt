@@ -1,0 +1,32 @@
+package gsIncubation;
+
+public class SecondSmallestElement {
+
+	public static int secondSmallest(int[] x) {
+		if (x.length == 0)
+			return -1;
+		int first = Integer.MAX_VALUE;
+		int second = first;
+
+		for (int i = 0; i < x.length; i++) {
+			if (x[i] < first) {
+
+				second = first;
+				first = x[i];
+
+			}
+
+			else if (second > x[i] && x[i] != first)
+				second = x[i];
+
+		}
+
+		return second;
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(secondSmallest(new int[] { -1, -1, -1, 4 }));
+
+	}
+}

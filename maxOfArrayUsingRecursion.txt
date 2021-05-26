@@ -1,0 +1,13 @@
+package algo;
+
+public class MaxOfArrayRecursion {
+
+	public int ans(int[] array,int index) {
+		if(index==array.length)return Integer.MIN_VALUE;
+		return Math.max(array[index], ans(array,++index));
+	}
+	public static void main(String args[])
+	{
+		System.out.print(new MaxOfArrayRecursion().ans(new int[] {1,3,-3,0}, 0));
+	}
+}

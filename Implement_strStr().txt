@@ -1,0 +1,33 @@
+https://leetcode.com/problems/implement-strstr/
+
+class Solution {
+    public boolean check(String haystack, String needle){
+        
+        if(haystack.equals(needle))return true;
+            
+            return false;
+    }
+    public int strStr(String haystack, String needle) {
+        if(needle.length()==0)return 0;
+        
+        int k=0;
+        int i=0;
+        int start=-1;
+        while(i<=haystack.length()-needle.length())
+        {
+            if(haystack.charAt(i)==needle.charAt(0) && i+needle.length()<=haystack.length()){
+
+                if(check(haystack.substring(i,i+needle.length()),needle)) return i;
+            
+            }
+        i++;
+        }
+        
+        
+            if(k==needle.length())return start;
+
+            
+        
+        return -1;
+    }
+}
