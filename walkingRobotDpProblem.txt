@@ -1,0 +1,37 @@
+package gsIncubation;
+
+public class WalkingRobotDpProblem {
+
+	public static Integer[] walk(String path) {
+    int Lcount=0;
+    int Rcount=0;
+    int Ucount=0;
+    int Dcount=0;
+    
+    for(int i=0;i<path.length();i++)
+    {
+    	if(path.charAt(i)=='L')Lcount++;
+    	else if(path.charAt(i)=='R')Rcount++;
+    	else if(path.charAt(i)=='U')Ucount++;
+    	else if(path.charAt(i)=='D')Dcount++;
+    }
+    
+    int x=Rcount-Lcount;
+    int y=Ucount-Dcount;
+	
+    Integer ar[]=new Integer[] {x,y};
+	return ar;
+	
+	
+	}
+
+	public static void main(String[] args) {
+		
+		Integer[] ar=walk("UDDLLRUUUDUURUDDUULLDRRRR") ; 
+		
+		
+			System.out.println(ar[0]+"  "+ar[1]);
+		
+		
+	}
+}

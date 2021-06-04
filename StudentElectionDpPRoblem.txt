@@ -1,0 +1,19 @@
+package gsIncubation;
+
+public class StudentElectionDpProblem {
+
+	public static int whoIsElected(int n, int k) {
+
+		if(n==1) return 0;
+		return (whoIsElected(n-1,k)+k ) %n ; 
+	
+	}
+
+	public static void main(String[] args) {
+
+System.out.println( whoIsElected(4,2)+1);
+
+
+	}
+
+}

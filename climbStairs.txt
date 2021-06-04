@@ -1,0 +1,21 @@
+https://leetcode.com/problems/climbing-stairs/submissions/
+
+class Solution {
+    public int climbStairs(int n) {
+ 
+        int i=1;
+        int j=2;
+        if(n<=2)return n;
+            
+        int ans=0;
+        int k=3;
+        while(k<=n){
+            ans=i+j;
+
+            i=j;
+            j=ans;
+        k++;
+        }
+        return ans;
+    }
+}

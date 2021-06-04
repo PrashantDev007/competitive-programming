@@ -3,6 +3,7 @@ package gsIncubation;
 public class ShortestDistanceOfTwoWords {
 
 	public static boolean isWord(String doc, String w1, int index) {
+
 		if (index == 0 && index + w1.length() == doc.length())
 			return true;
 		else if (index == 0 && doc.charAt(index + w1.length()) == ' ')
@@ -15,48 +16,79 @@ public class ShortestDistanceOfTwoWords {
 		return false;
 	}
 
-	public static double shortestDistance(String doc, String w1, String w2) {
+	public static double shortestDistanceCorrection(String doc, String w1, String w2) {
 
 		int lengthOfW1 = w1.length();
 		int lengthOfW2 = w2.length();
-		int FirstWordIndex = -1;
+		int prev = -1;
+		String prevWord = "";
 
-		int SecondWordIndex = -1;
-
-		for (int i = 0; i < doc.length(); i++) {
+		int i = 0;
+		for (i = 0; i < doc.length(); i++) {
 
 			if ((i + lengthOfW1) <= doc.length() && doc.substring(i, i + lengthOfW1).equals(w1) && isWord(doc, w1, i)) {
-
-				if (FirstWordIndex == -1 || SecondWordIndex == -1 || Math.abs(SecondWordIndex - FirstWordIndex) > Math.abs(SecondWordIndex - i)) {
-					FirstWordIndex = i;
-
-				}
-
-			} else if ((i + lengthOfW2) <= doc.length() && doc.substring(i, i + lengthOfW2).equals(w2)
-					&& isWord(doc, w2, i)) {
-
-				if (SecondWordIndex == -1 || FirstWordIndex == -1 || Math.abs(SecondWordIndex - FirstWordIndex) > Math.abs(FirstWordIndex - i)) {
-					SecondWordIndex = i;
-				}
+				prev = i;
+				prevWord = w1;
+				break;
 			}
 
+			else if ((i + lengthOfW2) <= doc.length() && doc.substring(i, i + lengthOfW2).equals(w2)
+					&& isWord(doc, w2, i)) {
+				prevWord = w2;
+				prev = i;
+				break;
+			}
 		}
-System.out.println(FirstWordIndex +"    "+SecondWordIndex);
-		double midpoint1 = FirstWordIndex + w1.length() / 2.0;
-		double midpoint2 = SecondWordIndex + w2.length() / 2.0;
-		
-		if(FirstWordIndex==-1 &&  SecondWordIndex ==-1)return 0.0;
-		else if(FirstWordIndex ==-1)return midpoint2;
-		else if (SecondWordIndex ==-1)return midpoint1;
-		
-		return Math.abs(midpoint1 - midpoint2);
+
+		if (prev == -1)
+			return 0.0;
+		double midpoint1 = 0;
+		double midpoint2 = 0;
+		double ans = Integer.MAX_VALUE;
+		i = i + prevWord.length();
+		int tmp = prev;
+		for (; i < doc.length(); i++) {
+			if ((i + lengthOfW1) <= doc.length() && doc.substring(i, i + lengthOfW1).equals(w1) && isWord(doc, w1, i)) {
+				if (!prevWord.equals(w1)) {
+
+					midpoint1 = prev + (w2.length() / 2.0);
+					midpoint2 = i + (w1.length() / 2.0);
+					ans = Math.min(ans, Math.abs(midpoint1 - midpoint2));
+					prevWord = w1;
+					prev = i;
+
+				}
+				prev = i;
+				prevWord = w1;
+
+			}
+
+			else if ((i + lengthOfW2) <= doc.length() && doc.substring(i, i + lengthOfW2).equals(w2)
+					&& isWord(doc, w2, i)) {
+
+				if (!prevWord.equals(w2)) {
+
+					midpoint1 = prev + w1.length() / 2.0;
+					midpoint2 = i + w2.length() / 2.0;
+					ans = Math.min(ans, Math.abs(midpoint1 - midpoint2));
+					prevWord = w2;
+					prev = i;
+
+				}
+				prev = i;
+				prevWord = w2;
+
+			}
+		}
+
+		if (ans == Integer.MAX_VALUE)
+			return tmp;
+		return ans;
 	}
 
 	public static void main(String args[]) {
-
-		double ans = shortestDistance(
+		System.out.println(shortestDistanceCorrection(
 				"In publishing and graphic design, lorem ipsum is a filler text commonly used to demonstrate the graphic elements",
-				"is", "a");
-		System.out.println(ans);
+				"is", "a"));
 	}
 }

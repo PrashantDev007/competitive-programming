@@ -1,0 +1,73 @@
+https://leetcode.com/problems/decode-ways/
+
+
+package gsIncubation;
+
+import java.util.Arrays;
+import java.util.HashMap;
+
+public class DecodeWays {
+
+	public static int ans = 0;
+	public static HashMap<String, Integer> h = new HashMap<String, Integer>();
+
+	public static void decodeWays(String s) {
+		// by memoization O(n)
+		if (s.startsWith("0")) {
+			return;
+		}
+		if (s.length() <= 1) {
+			ans = ans + 1;
+			return;
+		}
+		if (h.containsKey(s)) {
+			ans = ans + h.get(s);
+			return;
+		}
+
+		for (int i = 0; i < Math.max(2, s.length()); i++) {
+			int tmp = Integer.parseInt(s.substring(i, i + 1));
+			if (tmp >= 1 && tmp <= 26) {
+				decodeWays(s.substring(i + 1));
+			}
+			h.put(s.substring(i + 1), ans);
+		}
+
+	}
+
+	public static int decodeWaysByDp(String s) {
+
+		int dp1 = 1;
+		int dp2 = 0;
+		int dp = 0;
+		if (s.charAt(0) == '0') {
+			dp2 = 0;
+		} else {
+			dp2 = 1;
+		}
+
+		for (int i = 2; i <= s.length(); i++) {
+			dp = 0;
+			int first = Integer.parseInt(s.substring(i - 1, i));
+			int second = Integer.parseInt(s.substring(i - 2, i));
+
+			if (first >= 1 && first <= 9) {
+				dp += dp2;
+			}
+
+			if (second >= 10 && second <= 26) {
+				dp += dp1;
+			}
+			dp1 = dp2;
+			dp2 = dp;
+
+		}
+
+		return dp2;
+
+	}
+
+	public static void main(String[] args) {
+		decodeWays("96603");
+	}
+}

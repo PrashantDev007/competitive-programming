@@ -1,0 +1,88 @@
+https://leetcode.com/problems/fraction-addition-and-subtraction/submissions/
+
+package gsIncubation;
+
+import java.util.*;
+
+class Test {
+
+	public static String fractionAddition(String expression) {
+
+		if (expression.charAt(0) != '+' && expression.charAt(0) != '-') {
+			expression = "+" + expression;
+		}
+
+		expression = expression.replace("10", "0");
+		int lcm = 0, gcd = 0;
+		if (expression.charAt(3) == '0') {
+			gcd = 10;
+			lcm = 10;
+		} else {
+			gcd = Integer.parseInt(expression.charAt(3) + "");
+			lcm = Integer.parseInt(expression.charAt(3) + "");
+		}
+
+		for (int i = 7; i < expression.length(); i = i + 4) {
+
+			if (expression.charAt(i) == '0') {
+				gcd = getGcd(gcd, 10);
+				lcm = (lcm * 10) / gcd;
+			} else {
+				gcd = getGcd(gcd, Integer.parseInt(expression.charAt(i) + ""));
+				lcm = (lcm * Integer.parseInt(expression.charAt(i) + "")) / gcd;
+			}
+
+		}
+
+		int sum = 0;
+		int valueForI = 0;
+		int valueForLessThanI = 0;
+		for (int i = 3; i < expression.length(); i = i + 4) {
+
+			if (expression.charAt(i) == '0') {
+				valueForI = 10;
+			} else {
+
+				valueForI = Integer.parseInt(expression.charAt(i) + "");
+			}
+
+			if (expression.charAt(i - 2) == '0') {
+				valueForLessThanI = 10;
+			} else {
+
+				valueForLessThanI = Integer.parseInt(expression.charAt(i - 2) + "");
+			}
+
+			if (expression.charAt(i - 3) == '-')
+				sum = sum - (lcm / valueForI) * (valueForLessThanI);
+			else {
+				sum = sum + (lcm / valueForI) * (valueForLessThanI);
+			}
+
+		}
+
+		int newGcd = getGcd(Math.abs(sum), lcm);
+		sum /= newGcd;
+		lcm /= newGcd;
+
+		if (sum >= 0)
+			return sum + "/" + lcm;
+
+		return "-" + Math.abs(sum) + "/" + lcm;
+
+	}
+
+	public static int getGcd(int a, int b) {
+		if (a == 0)
+			return b;
+
+		return getGcd(b % a, a);
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(fractionAddition("5/3+1/3"));
+
+	}
+
+}

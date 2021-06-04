@@ -1,0 +1,60 @@
+//https://www.youtube.com/watch?v=GTJr8OvyEVQ
+package gsIncubation;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+
+public class KMP {
+
+	public static void pattern(String pattern, String text) {
+
+		int kmp[] = new int[pattern.length()];
+		kmp[0] = 0;
+		int i = 0;
+		int j = 1;
+		while (j < pattern.length()) {
+
+			if (pattern.charAt(i) == pattern.charAt(j)) {
+				kmp[j] = i + 1;
+				i++;
+				j++;
+			} else if (i == 0 && pattern.charAt(i) != pattern.charAt(j)) {
+				kmp[j] = 0;
+				j++;
+			} else {
+				i = kmp[i - 1];
+			}
+
+		}
+		System.out.println(Arrays.toString(kmp));
+
+		i = 0;
+		j = 0;
+		while (i < text.length()) {
+
+			if (text.charAt(i) == pattern.charAt(j)) {
+				i++;
+				j++;
+			} else if (j == 0 && text.charAt(i) != pattern.charAt(j)) {
+
+				i++;
+			} else {
+
+				j = kmp[j - 1];
+			}
+			if (j == pattern.length()) {
+				System.out.println("match" + (i - pattern.length()) + "  " + (i - 1));
+				return;
+			}
+
+		}
+
+		System.out.println("not match");
+
+	}
+
+	public static void main(String[] args) {
+		pattern("abcaby", "abxabcabcaby");
+	}
+}

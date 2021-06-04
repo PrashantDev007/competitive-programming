@@ -1,0 +1,161 @@
+package gsIncubation;
+
+public class MedianOfTwoSortedArray {
+
+	
+	public static double medianWithLogN(int a[], int b[]) {
+	
+	    
+        
+    	if(a.length<b.length) {
+		int tmp[]=a;
+		a=b;
+		b=tmp;
+	}
+	
+	int n=(a.length+b.length);
+	 int half=n/2;
+    
+	int start=0;
+	int end=b.length-1;
+	
+while(true) {
+   
+	int m2=start+(end-start)/2;
+	if(end<start)m2=-1;
+    int m1=  half-m2-2;
+	int aL=(m1>=0)? a[m1]:Integer.MIN_VALUE;
+	int aR=(  m1+1 < a.length  )?a[m1+1]:Integer.MAX_VALUE;
+	int bL=(m2>=0)?b[m2]:Integer.MIN_VALUE;
+	int bR=(m2+1<b.length)?b[m2+1]:Integer.MAX_VALUE;
+	
+
+	if(aL<=bR && aR>=bL) {
+
+		if(n%2==0) {
+            
+			return (Math.max(aL, bL)+Math.min(aR, bR) )/2.0;
+		}
+		else {
+             
+			return Math.min(aR, bR);
+		}
+
+        }else if(aR<bL)end=m2-1;
+	else {
+		start=m2+1;
+	}
+}
+	
+    
+	
+	
+
+		
+	}
+	
+	
+	public static double median(int a[], int b[]) {
+		int n = a.length + b.length;
+		int i = 0;
+		int j = 0;
+		int count = 0;
+		if (n % 2 == 0) {
+			int median1 = Integer.MAX_VALUE;
+			int median2 = Integer.MAX_VALUE;
+			int tmp = 0;
+			while (count <= n / 2 && i < a.length & j < b.length) {
+				if (a[i] > b[j]) {
+					System.out.println(i + "   " + j);
+					tmp = median2;
+					median2 = b[j];
+					median1 = tmp;
+					j++;
+					count++;
+				} else {
+					tmp = median2;
+					median2 = a[i];
+					median1 = tmp;
+
+					i++;
+					count++;
+				}
+
+			}
+			while (count <= n / 2 && i < a.length) {
+				count++;
+
+				tmp = median2;
+				median2 = a[i];
+				median1 = tmp;
+
+				i++;
+			}
+
+			while (count <= n / 2 && j < b.length) {
+				count++;
+
+				tmp = median2;
+				median2 = b[j];
+				median1 = tmp;
+
+				j++;
+
+			}
+
+			System.out.println(median1 + "   " + median2);
+			return (median1 + median2) / 2.0;
+		}
+
+		else {
+
+			i = 0;
+			j = 0;
+			int median = Integer.MAX_VALUE;
+
+			while (count <= n / 2 && i < a.length & j < b.length) {
+				// System.out.println(a[i]+ " " +b[j]);
+				if (a[i] > b[j]) {
+					median = b[j];
+					j++;
+					count++;
+				} else {
+
+					median = a[i];
+
+					i++;
+					count++;
+				}
+
+			}
+			while (count <= n / 2 && i < a.length) {
+				count++;
+
+				median = a[i];
+
+				i++;
+
+			}
+
+			while (count <= n / 2 && j < b.length) {
+				count++;
+
+				median = b[j];
+
+				j++;
+
+			}
+
+			return median;
+
+		}
+	}
+
+	public static void main(String[] args) {
+
+//		System.out.println(median(new int[] {1,4},new int[] {2,3,4,5}));
+		//System.out.println(median(new int[] {  }, new int[] {}));
+		// System.out.println(median(new int[] {1,4},new int[] {1,2}));
+System.out.println(medianWithLogN(  new int[] {1,4},new int[] {4,5}    ));
+	}
+}

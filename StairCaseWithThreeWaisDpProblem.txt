@@ -1,0 +1,32 @@
+package gsIncubation;
+
+public class StairCaseWithThreeWaisDpProblem {
+
+	public static Integer countSteps(Integer n) {
+	
+	if(n<=1) return n;
+	else if (n==2) return 2;
+	else if (n==3) return 4;
+	
+	return countSteps(n-1)+countSteps(n-2)+countSteps(n-3); 
+	}
+	
+	 public static int countWaysWithIterativeApproach(int n)
+	    {
+	        int[] res = new int[n + 1];
+	        res[0] = 1;
+	        res[1] = 1;
+	        res[2] = 2;
+	 
+	        for (int i = 3; i <= n; i++)
+	            res[i] = res[i - 1] + res[i - 2]
+	                     + res[i - 3];
+	 
+	        return res[n];
+	    }
+
+	public static void main(String[] args) {
+		
+		System.out.println(countSteps(4));
+	}
+}

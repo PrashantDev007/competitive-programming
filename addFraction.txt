@@ -1,0 +1,34 @@
+package gsIncubation;
+
+public class AddFraction {
+
+	public static int getGcd(int a, int b) {
+
+		if (a == 0)
+			return b;
+
+		return getGcd(b % a, a);
+	}
+
+	public static int[] addFractions(int[] fraction1, int[] fraction2) {
+
+		int lcm = (fraction1[1] * fraction2[1]) / getGcd(fraction1[1], fraction2[1]);
+
+		int num = 0;
+
+		num = ((lcm / fraction1[1]) * fraction1[0]) + ((lcm / fraction2[1]) * fraction2[0]);
+
+		int gcd = getGcd(num, lcm);
+
+		int ans[] = new int[] { num / gcd, lcm / gcd };
+		System.out.println(ans[0]);
+		System.out.println(ans[1]);
+
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		addFractions(new int[] { 2, 3 }, new int[] { 7, 2 }).toString();
+
+	}
+}

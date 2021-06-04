@@ -1,0 +1,41 @@
+package gsIncubation;
+
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.TreeMap;
+
+public class BestAverageGrade {
+
+	public static Double bestAverageGrade(String[][] scores) {
+
+		HashMap<String, Integer> countMap = new HashMap<String, Integer>();
+		HashMap<String, Double> marksMap = new HashMap<String, Double>();
+
+		for (String[] i : scores) {
+
+			if (marksMap.get(i[0]) == null) {
+				marksMap.put(i[0], Double.parseDouble(i[1]));
+				countMap.put(i[0], 1);
+			} else {
+
+				marksMap.put(i[0], marksMap.get(i[0]) + Double.parseDouble(i[1]));
+				countMap.put(i[0], countMap.get(i[0]) + 1);
+			}
+
+		}
+		double ans = Integer.MIN_VALUE;
+		for (Entry<String, Double> e : marksMap.entrySet()) {
+			System.out.println(e.getKey() + "   " + e.getValue() + "     " + countMap.get(e.getKey()));
+			ans = Math.max(ans, e.getValue() / countMap.get(e.getKey()));
+
+		}
+
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		System.out.println(bestAverageGrade(
+				new String[][] { { "Bobby", "64" }, { "Charles", "100" }, { "Eric", "64" }, { "Charles", "22" } }));
+
+	}
+}
