@@ -7,8 +7,23 @@ import java.util.Queue;
 
 public class CountLegthOfCycle {
 
+	private static int findLoop(int[] givenArray) {
+	    int counterArray [] = new int[givenArray.length];
+	    int index = 0;
+	    int counter = 0;
+	    while(counterArray[index] == 0){
+	       counterArray[index] = counter++;
+	        index = givenArray[index];
+	    }
+	    return counter-counterArray[index];
+	}
+	
+	
+	
+	
+	//when repeatition is not allowed;
 	public static int countLengthofcycle2(int arr[], int startIndex) {
-
+		int prevSlow=0;
 		if (arr == null || arr.length == 0)
 			return -1;
 
@@ -23,24 +38,17 @@ public class CountLegthOfCycle {
 				return -1;
 
 			count++;
+			prevSlow=fast;
 			slow = arr[slow];
 			fast = arr[arr[fast]];
+			System.out.println(slow+"   "+fast);
 		}
 		return count;
 
 	}
 
-	public static int countCycles(int[] data, int start) {
-		int[] counters = new int[data.length];
-		int index = start;
-		int count = 0;
-		while (counters[index] == 0) {
-			counters[index] = count++;
-			index = data[index];
-		}
-		return count - counters[index];
-	}
 
+	//when repeatition is allowed;
 	public static int countLengthofcycle(int arr[], int startIndex) {
 		if (startIndex >= arr.length)
 			return -1;
@@ -61,8 +69,6 @@ public class CountLegthOfCycle {
 			j = tmp;
 			tmp = arr[tmp];
 
-
-
 		}
 
 		if (tmp >= arr.length)
@@ -72,15 +78,22 @@ public class CountLegthOfCycle {
 				q.removeFirst();
 		}
 
-		// arr[0] no cycle
+	
 		if (q.size() == 1)
 			return -1;
+		
 		return q.size();
 
 	}
 
 	public static void main(String[] args) {
-		System.out.println(countLengthofcycle(new int[] { 1, 0 }, 0));
-		System.out.println(countLengthofcycle2(new int[] { 1, 4, 3, 2, 3 }, 0));
+		System.out.println( findLoop(new int[] {1,2,0}));
+		System.out.println(countLengthofcycle2(new int[] {0}, 0));
+		System.out.println(countLengthofcycle(new int[] {0}, 0));
+		
+	
+		
 	}
 }
+
+

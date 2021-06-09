@@ -1,0 +1,35 @@
+https://leetcode.com/problems/group-anagrams/
+
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+        
+   HashMap <String,List<String>>hm=new HashMap<>();
+        
+        int count[]=new int[26];
+        for(int i=0;i<strs.length;i++){
+            Arrays.fill(count,0);
+            
+            for(Character c: strs[i].toCharArray()){
+                count[c-'a']++;
+            }
+            StringBuilder tmp = new StringBuilder("");
+            for(int j=0;j<26;j++){
+                tmp=tmp.append("#" );
+                tmp=tmp .append(count[j]);
+            }
+            
+            String k=tmp.toString();
+            if(! hm.containsKey(k) ){
+                hm.put(k,new ArrayList());
+                                    
+                                    }
+            hm.get(k).add(strs[i]);
+        
+        
+        }
+        
+        return new ArrayList(hm.values());
+        
+        
+    }
+}

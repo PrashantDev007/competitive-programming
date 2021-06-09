@@ -1,0 +1,22 @@
+https://leetcode.com/problems/pascals-triangle-ii/submissions/
+
+class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        
+         List<Integer> ans=new LinkedList<Integer>();
+        
+        long prev=1;
+        ans.add((int)prev);
+        long newValue=0;
+        for(int i=1;i<=rowIndex;i++){
+            newValue=prev*( rowIndex-i+1)/i;
+            ans.add( (int)newValue );
+            prev=newValue;
+        }
+        
+		return ans;
+        
+        
+        
+    }
+}
