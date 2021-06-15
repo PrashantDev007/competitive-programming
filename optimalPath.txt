@@ -1,0 +1,50 @@
+package gsIncubation;
+
+public class OptimalPath {
+
+	public static Integer optimalPath(Integer[][] grid) {
+		int m = grid.length;
+		int n = grid[0].length;
+		int[][] dpArr = new int[m][n];
+
+		for (int i = m - 1; i >= 0; i--) {
+			for (int j = 0; j < n; j++) {
+
+				if (i == m - 1 && j == 0) {
+					dpArr[i][j] = grid[i][j];
+				} else if (i == m - 1 && j != 0) {
+					dpArr[i][j] = dpArr[i][j - 1] + grid[i][j];
+				}
+
+				else if (j == 0 && i != m - 1) {
+					dpArr[i][j] = dpArr[i + 1][j] + grid[i][j];
+				}
+
+				else {
+					dpArr[i][j] = Math.max(dpArr[i][j - 1] + grid[i][j], dpArr[i + 1][j] + grid[i][j]);
+				}
+
+			}
+		}
+
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				System.out.print("  ");
+				System.out.print(dpArr[i][j]);
+			}
+			System.out.println();
+		}
+
+		return dpArr[0][n - 1];
+	}
+
+	public static void main(String[] args) {
+
+		System.out.println(optimalPath(new Integer[][] { { 0, 0, 0, 0, 5 }, { 0, 1, 1, 1, 0 }, { 2, 0, 0, 0, 0 }
+
+		}
+
+		));
+
+	}
+}

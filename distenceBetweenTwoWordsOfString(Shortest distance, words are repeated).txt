@@ -2,6 +2,38 @@ package gsIncubation;
 
 public class ShortestDistanceOfTwoWords {
 
+public static double distance2(String s, String w1, String w2) {
+		String[] words = s.split("[,. ]");
+        System.out.println(Arrays.toString(words)  );
+		int index = 0;
+        double shortest = s.length();
+        double word1Loc = 0;
+        double word2Loc = 0;
+
+        for (String word : words) {
+            if (word.equalsIgnoreCase(w1)) {
+                word1Loc = index + (word.length() / 2d);
+            } else if (word.equalsIgnoreCase(w2)) {
+                word2Loc = index + (word.length() / 2d);
+            }
+            if (word1Loc > 0 && word2Loc > 0) {
+                double current = Math.abs(word1Loc - word2Loc);
+                if (current < shortest) {
+                    shortest = current;
+                }
+            }
+            index += word.length() + 1;
+        }
+        if (word1Loc == 0 || word2Loc == 0) {
+            return -1;
+        }
+        return shortest;
+	}
+	
+	
+
+
+
 	public static boolean isWord(String doc, String w1, int index) {
 
 		if (index == 0 && index + w1.length() == doc.length())
