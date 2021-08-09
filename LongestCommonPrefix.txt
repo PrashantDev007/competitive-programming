@@ -1,0 +1,78 @@
+//https://leetcode.com/problems/longest-common-prefix/submissions/
+package algo;
+
+public class LongestCommonPrefix {
+
+	public boolean isCommonPrefix(String s, String strs[]) {
+
+		for (String string : strs) {
+			if (string.length() < s.length())
+				return false;
+			if (!s.equals(string.substring(0, s.length())))
+				return false;
+		}
+
+		return true;
+
+	}
+
+	public String longestCommonPrefixWithBS(String[] strs) {
+
+		if (strs.length == 0)
+			return "";
+
+		String s = strs[0];
+
+		int l = 0, r = s.length() - 1;
+		String ans = "";
+		while (l <= r) {
+			int mid = l + ((r - l) / 2);
+
+			if (isCommonPrefix(s.substring(0, mid + 1), strs)) {
+				l = mid + 1;
+				ans = s.substring(0, mid + 1);
+			} else {
+				r = mid - 1;
+			}
+		}
+
+		return ans;
+
+	}
+
+	public String longestCommonPrefix(String[] strs) {
+
+		int i = 0;
+		String ans = "";
+		while (i < strs[0].length()) {
+
+			char currentChar = strs[0].charAt(i);
+			int count = 0;
+
+			for (String string : strs) {
+				if (i < string.length()) {
+
+					if (string.charAt(i) == currentChar)
+						count++;
+					else
+						return ans;
+
+				} else
+					return ans;
+			}
+
+			if (count == strs.length)
+				ans = ans + currentChar;
+
+			i++;
+		}
+
+		return ans;
+
+	}
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,32 @@
+https://leetcode.com/problems/task-scheduler/
+
+package algo;
+
+public class TaskScheduler {
+
+	public int leastInterval(char[] tasks, int n) {
+		int ar[] = new int[26];
+		int max = Integer.MIN_VALUE;
+		for (int i = 0; i < tasks.length; i++) {
+			ar[tasks[i] - 'A']++;
+			max = Math.max(max, ar[tasks[i] - 'A']);
+		}
+		int count = 0;
+		int ans = 0;
+		for (int i = 0; i < 26; i++) {
+			if (ar[i] == max)
+				count++;
+		}
+
+		ans = (max - 1) * (n + 1) + count;
+
+		return Math.max(tasks.length, ans);
+
+	}
+
+	public static void main(String[] args) {
+
+		TaskScheduler t = new TaskScheduler();
+		System.out.println(t.leastInterval(new char[] { 'A', 'A', 'A', 'B', 'B', 'B' }, 2));
+	}
+}
